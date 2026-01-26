@@ -9,13 +9,17 @@ const MarketplacePage = () => {
     const [selectedLocation, setSelectedLocation] = useState('');
 
     // Get unique locations
-    const locations = [...new Set(marketData.map(item => item.locationEn))];
+    const locations = [...new Set(marketData.map(item => item.location?.en || item.location?.['en']))];
 
     const filteredData = marketData.filter(item => {
+        const commodityEn = item.commodity?.en || '';
+        const commodityHi = item.commodity?.hi || '';
+        const locationEn = item.location?.en || '';
+
         const matchesSearch =
-            item.commodityEn.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.commodityHi.includes(searchTerm);
-        const matchesLocation = selectedLocation === '' || item.locationEn === selectedLocation;
+            commodityEn.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            commodityHi.includes(searchTerm);
+        const matchesLocation = selectedLocation === '' || locationEn === selectedLocation;
         return matchesSearch && matchesLocation;
     });
 

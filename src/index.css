@@ -45,6 +45,10 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  scroll-padding-top: 100px;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

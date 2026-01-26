@@ -1,26 +1,35 @@
 // import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { translations } from '../../data/marketData';
 import { useLanguage } from '../../context/LanguageContext';
 
 const Features = () => {
-    const { lang } = useLanguage();
-    const t = translations[lang].features;
+    const { lang, setLang } = useLanguage();
+    const navigate = useNavigate();
+    const getFeatureTrans = (key, subKey) => {
+        const langData = translations[lang]?.features?.[key];
+        const enData = translations['en'].features[key];
+        return langData?.[subKey] || enData[subKey];
+    };
 
     const features = [
         {
-            title: t.discovery.title,
-            description: t.discovery.desc,
+            title: getFeatureTrans('discovery', 'title'),
+            description: getFeatureTrans('discovery', 'desc'),
             icon: '📊',
+            action: () => navigate('/marketplace')
         },
         {
-            title: t.negotiation.title,
-            description: t.negotiation.desc,
+            title: getFeatureTrans('negotiation', 'title'),
+            description: getFeatureTrans('negotiation', 'desc'),
             icon: '🤖',
+            action: () => alert("AI Negotiation Agent is connecting...\n(Demo: This feature is coming soon!)")
         },
         {
-            title: t.multilingual.title,
-            description: t.multilingual.desc,
+            title: getFeatureTrans('multilingual', 'title'),
+            description: getFeatureTrans('multilingual', 'desc'),
             icon: '🗣️',
+            action: () => setLang(prev => prev === 'en' ? 'hi' : 'en')
         },
     ];
 
@@ -79,7 +88,11 @@ const Features = () => {
                     {features.map((feature, index) => (
                         <div
                             key={index}
-                            style={styles.card}
+                            style={{
+                                ...styles.card,
+                                cursor: 'pointer'
+                            }}
+                            onClick={feature.action}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.transform = 'translateY(-10px)';
                                 e.currentTarget.style.boxShadow = '0 10px 30px rgba(74, 21, 75, 0.2)';

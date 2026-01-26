@@ -3,12 +3,16 @@ import Header from './components/Layout/Header.jsx';
 import Footer from './components/Layout/Footer.jsx';
 import HomePage from './pages/HomePage.jsx';
 import MarketplacePage from './pages/MarketplacePage.jsx';
+import ScrollToTop from './components/Shared/ScrollToTop.jsx';
+import ScrollToAnchor from './components/Shared/ScrollToAnchor.jsx';
 
 function App() {
   // No local state needed currently
 
   return (
     <div style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
+      <ScrollToTop />
+      <ScrollToAnchor />
       <Header />
 
       <main>

@@ -1,11 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { translations } from '../../data/marketData';
 import { useLanguage } from '../../context/LanguageContext';
 
 const Hero = () => {
     const { lang } = useLanguage();
     const navigate = useNavigate();
-    const t = translations[lang];
+    const t = translations[lang] || translations['en'];
 
     const styles = {
         section: {
@@ -121,11 +121,12 @@ const Hero = () => {
                     >
                         {t.startTrading}
                     </button>
-                    <a href="#vendors" style={{ textDecoration: 'none' }}>
+                    {/* Changed from a tag to Link to prevent full reload and enable smooth scroll via ScrollToAnchor */}
+                    <Link to="/#vendors" style={{ textDecoration: 'none' }}>
                         <button style={styles.secondaryBtn} className="hover-lift">
                             {t.viewLiveMandi}
                         </button>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>

@@ -95,26 +95,42 @@ const TradeModal = ({ isOpen, onClose, commodity }) => {
         );
     }
 
+    const commodityName = commodity ? (commodity.commodity[lang] || commodity.commodity['en']) : '';
+    const locationName = commodity ? (commodity.location[lang] || commodity.location['en']) : '';
+
+    // UI Translations
+    const uiText = {
+        trade: { en: 'Trade', hi: 'व्यापार', bn: 'বাণিজ্য', te: 'వర్తకం', mr: 'व्यापार', ta: 'வர்த்தகம்', ur: 'تجارت', gu: 'વેપાર', kn: 'ವ್ಯಾಪಾರ', ml: 'വ്യാപാരം', pa: 'ਵਪਾਰ', or: 'ବାଣିଜ୍ୟ' },
+        rate: { en: 'Current Rate', hi: 'वर्तमान भाव', bn: 'বর্তমান মূল্য', te: 'ప్రస్తుత ధర', mr: 'सध्याचा भाव', ta: 'தற்போதைய விலை', ur: 'موجودہ قیمت', gu: 'વર્તમાન ભાવ', kn: 'ಪ್ರಸ್ತುತ ಬೆಲೆ', ml: 'നിലവിലെ വില', pa: 'ਮੌਜੂਦਾ ਕੀਮਤ', or: 'ବର୍ତ୍ତମାନର ମୂଲ୍ୟ' },
+        location: { en: 'Location', hi: 'स्थान', bn: 'অবস্থান', te: 'ప్రాంతం', mr: 'स्थान', ta: 'இடம்', ur: 'مقام', gu: 'સ્થળ', kn: 'ಸ್ಥಳ', ml: 'സ്ഥലം', pa: 'ਸਥਾਨ', or: 'ସ୍ଥାନ' },
+        qty: { en: 'Quantity (Quintals)', hi: 'मात्रा (क्विंटल)', bn: 'পরিমাণ (কুইন্টাল)', te: 'పరిమాణం (క్వింటాల్స్)', mr: 'प्रमाण (क्विंटल)', ta: 'அளவு (குவிண்டால்)', ur: 'مقدار (کوئنٹل)', gu: 'જથ્થો (ક્વિન્ટલ)', kn: 'ಪ್ರಮಾಣ (ಕ್ವಿಂಟಾಲ್)', ml: 'അളവ് (ക്വിന്റൽ)', pa: 'ਮਾਤਰਾ (ਕਵਿੰਟਲ)', or: 'ପରିମାଣ (କୁଇଣ୍ଟାଲ)' },
+        bid: { en: 'Your Bid Price (₹/q)', hi: 'आपकी बोली (₹/q)', bn: 'আপনার বিড মূল্য (₹/q)', te: 'మీ బిడ్ ధర (₹/q)', mr: 'तुमची बोली (₹/q)', ta: 'உங்கள் ஏல விலை (₹/q)', ur: 'آپ کی بولی کی قیمت (₹/q)', gu: 'તમારી બોલી કિંમત (₹/q)', kn: 'ನಿಮ್ಮ ಬಿಡ್ ಬೆಲೆ (₹/q)', ml: 'നിങ്ങളുടെ ബിഡ് വില (₹/q)', pa: 'ਤੁਹਾਡੀ ਬੋਲੀ ਦੀ ਕੀਮਤ (₹/q)', or: 'ଆପଣଙ୍କ ବିଡ୍ ମୂଲ୍ୟ (₹/q)' },
+        placeBid: { en: 'Place Bid', hi: 'बोली लगाएँ', bn: 'বিড করুন', te: 'బిడ్ చేయండి', mr: 'बोली लावा', ta: 'ஏலம் இடுங்கள்', ur: 'بولی لگائیں', gu: 'બોલી લગાવો', kn: 'ಬಿಡ್ ಮಾಡಿ', ml: 'ബിഡ് ചെയ്യുക', pa: 'ਬੋਲੀ ਲਗਾਓ', or: 'ବିଡ୍ କରନ୍ତୁ' },
+        processing: { en: 'Processing...', hi: 'ਪ੍ਰੋਸੈਸਿੰਗ...', bn: 'প্রক্রিয়াকরণ...', te: 'ప్రాసెసింగ్...', mr: 'प्रक्रिया...', ta: 'செயலாக்குகிறது...', ur: 'پروسیسنگ...', gu: 'પ્રક્રિયા...', kn: 'ಸಂಸ್ಕರಿಸಲಾಗುತ್ತಿದೆ...', ml: 'പ്രോസസ്സ് ചെയ്യുന്നു...', pa: 'ਪ੍ਰੋਸੈਸਿੰਗ...', or: 'ପ୍ରକ୍ରିୟାକରଣ...' }
+    };
+
+    const t = (key) => uiText[key][lang] || uiText[key]['en'];
+
     return (
         <Modal
             isOpen={isOpen}
             onClose={onClose}
-            title={lang === 'en' ? `Trade ${commodity?.commodityEn || ''}` : `${commodity?.commodityHi || ''} व्यापार`}
+            title={`${t('trade')} ${commodityName}`}
         >
             <div style={styles.infoRow}>
                 <div>
-                    <div style={styles.label}>Current Rate</div>
+                    <div style={styles.label}>{t('rate')}</div>
                     <div style={styles.value}>₹{commodity?.price}/q</div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                    <div style={styles.label}>Location</div>
-                    <div style={styles.value}>{lang === 'en' ? commodity?.locationEn : commodity?.locationHi}</div>
+                    <div style={styles.label}>{t('location')}</div>
+                    <div style={styles.value}>{locationName}</div>
                 </div>
             </div>
 
             <form style={styles.form} onSubmit={handleSubmit}>
                 <div style={styles.inputGroup}>
-                    <label style={styles.label}>Quantity (Quintals)</label>
+                    <label style={styles.label}>{t('qty')}</label>
                     <input
                         type="number"
                         placeholder="e.g. 50"
@@ -127,7 +143,7 @@ const TradeModal = ({ isOpen, onClose, commodity }) => {
                 </div>
 
                 <div style={styles.inputGroup}>
-                    <label style={styles.label}>Your Bid Price (₹/q)</label>
+                    <label style={styles.label}>{t('bid')}</label>
                     <input
                         type="number"
                         placeholder={commodity?.price}
@@ -145,7 +161,7 @@ const TradeModal = ({ isOpen, onClose, commodity }) => {
                     onMouseEnter={(e) => !loading && (e.target.style.transform = 'translateY(-2px)')}
                     onMouseLeave={(e) => !loading && (e.target.style.transform = 'translateY(0)')}
                 >
-                    {loading ? 'Processing...' : (lang === 'en' ? 'Place Bid' : 'बोली लगाएँ')}
+                    {loading ? t('processing') : t('placeBid')}
                 </button>
             </form>
         </Modal>

@@ -1,37 +1,14 @@
 // import React from 'react';
+import { Link } from 'react-router-dom';
 // import { translations } from '../../data/marketData';
+import { translations } from '../../data/marketData';
 import { useLanguage } from '../../context/LanguageContext';
 
 const Footer = () => {
     const { lang } = useLanguage();
     // Footer translations handled locally for simplicity
 
-    const t = {
-        en: {
-            slogan: 'Connecting India’s farmers and traders with the power of AI.',
-            platform: 'Platform',
-            company: 'Company',
-            liveRates: 'Live Rates',
-            aiTools: 'AI Tools',
-            vendors: 'Vendors',
-            about: 'About Us',
-            contact: 'Contact',
-            privacy: 'Privacy',
-            builtFor: 'Built for'
-        },
-        hi: {
-            slogan: 'AI की शक्ति से भारत के किसानों और व्यापारियों को जोड़ना।',
-            platform: 'प्लेटफ़ॉर्म',
-            company: 'कंपनी',
-            liveRates: 'लाइव भाव',
-            aiTools: 'AI टूल्स',
-            vendors: 'विक्रेता',
-            about: 'हमारे बारे में',
-            contact: 'संपर्क करें',
-            privacy: 'गोपनीयता',
-            builtFor: 'के लिए बनाया गया'
-        }
-    }[lang];
+    const t = (translations[lang]?.footer) || translations['en'].footer;
 
     const styles = {
         footer: {
@@ -94,16 +71,11 @@ const Footer = () => {
                 <div style={styles.links}>
                     <div style={styles.column}>
                         <h4 style={{ color: 'white', marginBottom: '8px' }}>{t.platform}</h4>
-                        <a href="#vendors" style={styles.link} className="hover-text-white">{t.liveRates}</a>
-                        <a href="#features" style={styles.link} className="hover-text-white">{t.aiTools}</a>
-                        <a href="#vendors" style={styles.link} className="hover-text-white">{t.vendors}</a>
+                        <Link to="/marketplace" style={styles.link} className="hover-text-white">{t.liveRates}</Link>
+                        <Link to="/#features" style={styles.link} className="hover-text-white">{t.aiTools}</Link>
+                        <Link to="/#vendors" style={styles.link} className="hover-text-white">{t.vendors}</Link>
                     </div>
-                    <div style={styles.column}>
-                        <h4 style={{ color: 'white', marginBottom: '8px' }}>{t.company}</h4>
-                        <a href="#" style={styles.link} className="hover-text-white">{t.about}</a>
-                        <a href="#" style={styles.link} className="hover-text-white">{t.contact}</a>
-                        <a href="#" style={styles.link} className="hover-text-white">{t.privacy}</a>
-                    </div>
+
                 </div>
             </div>
             <div style={styles.copyright}>

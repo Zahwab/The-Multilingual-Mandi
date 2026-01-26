@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { vendorsData } from '../../data/marketData';
+import { vendorsData, translations } from '../../data/marketData';
 import Modal from '../Shared/Modal';
 
 const Vendors = () => {
@@ -153,7 +153,8 @@ const Vendors = () => {
         <section style={styles.section} id="vendors">
             <div style={styles.container}>
                 <h2 style={styles.title}>
-                    {lang === 'en' ? 'Verified Vendors' : 'सत्यापित विक्रेता'}
+                    {/* {lang === 'en' ? 'Verified Vendors' : 'सत्यापित विक्रेता'} */}
+                    {(translations[lang]?.vendorsSection || translations['en'].vendorsSection).title}
                 </h2>
                 <div style={styles.grid}>
                     {vendorsData.map((vendor) => (
@@ -202,7 +203,8 @@ const Vendors = () => {
                                     e.target.style.color = 'var(--color-secondary)';
                                 }}
                             >
-                                {lang === 'en' ? 'View Profile' : 'प्रोफ़ाइल देखें'}
+                                {/* {lang === 'en' ? 'View Profile' : 'प्रोफ़ाइल देखें'} */}
+                                {(translations[lang]?.vendorsSection || translations['en'].vendorsSection).viewProfile}
                             </button>
                         </div>
                     ))}
@@ -232,12 +234,12 @@ const Vendors = () => {
                         </div>
 
                         <div style={styles.modalSection}>
-                            <span style={styles.modalLabel}>About</span>
+                            <span style={styles.modalLabel}>{(translations[lang]?.vendorsSection || translations['en'].vendorsSection).about}</span>
                             <p style={styles.modalText}>{selectedVendor.description}</p>
                         </div>
 
                         <div style={styles.modalSection}>
-                            <span style={styles.modalLabel}>Products & Prices</span>
+                            <span style={styles.modalLabel}>{(translations[lang]?.vendorsSection || translations['en'].vendorsSection).products}</span>
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
                                 {selectedVendor.products.map((p, i) => (
                                     <div key={i} style={{
@@ -258,7 +260,7 @@ const Vendors = () => {
                             onClick={(e) => handleContact(e, selectedVendor)}
                             className="hover-lift"
                         >
-                            📞 {lang === 'en' ? 'Contact Vendor' : 'विक्रेता से संपर्क करें'}
+                            📞 {(translations[lang]?.vendorsSection || translations['en'].vendorsSection).contact}
                         </button>
                     </div>
                 </Modal>

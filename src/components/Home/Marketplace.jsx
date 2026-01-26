@@ -6,7 +6,7 @@ import { useLanguage } from '../../context/LanguageContext';
 const Marketplace = ({ data }) => {
     const { lang } = useLanguage();
     const [selectedCommodity, setSelectedCommodity] = useState(null);
-    const t = translations[lang];
+    const t = translations[lang] || translations['en'];
 
     // Use passed data or default to all marketData
     const displayData = data || marketData;
@@ -121,48 +121,60 @@ const Marketplace = ({ data }) => {
                                 <div>Action</div>
                             </div>
 
-                            {displayData.map((item, index) => (
-                                <div
-                                    key={index}
-                                    style={styles.row}
-                                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'}
-                                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                                >
-                                    <div style={{ fontWeight: '600' }}>
-                                        {lang === 'en' ? item.commodityEn : item.commodityHi}
+                            {displayData.map((item, index) => {
+                                // Dynamic language selection with fallback to English
+                                const commodityName = item.commodity[lang] || item.commodity['en'];
+                                const locationName = item.location[lang] || item.location['en'];
+
+                                // Localized button text
+                                const tradeBtnText = {
+                                    en: 'Trade', hi: 'व्यापार', bn: 'বাণিজ্য', te: 'వర్తకం', mr: 'व्यापार', ta: 'வர்த்தகம்',
+                                    ur: 'تجارت', gu: 'વેપાર', kn: 'ವ್ಯಾಪಾರ', ml: 'വ്യാപാരം', pa: 'ਵਪਾਰ', or: 'ବାଣିଜ୍ୟ'
+                                };
+
+                                return (
+                                    <div
+                                        key={index}
+                                        style={styles.row}
+                                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'}
+                                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                                    >
+                                        <div style={{ fontWeight: '600' }}>
+                                            {commodityName}
+                                        </div>
+                                        <div style={{ color: 'var(--color-text-muted)' }}>
+                                            {locationName}
+                                        </div>
+                                        <div style={{ fontWeight: '700', fontFamily: 'monospace', fontSize: '16px' }}>
+                                            {formatPrice(item.price)}/q
+                                        </div>
+                                        <div style={item.trend === 'up' ? styles.trendUp : item.trend === 'down' ? styles.trendDown : {}}>
+                                            {item.trend === 'up' ? '▲ Up' : item.trend === 'down' ? '▼ Down' : '• Stable'}
+                                        </div>
+                                        <div>
+                                            <span style={styles.aiBadge}>
+                                                {item.confidence === 'High' && '✨'} {item.confidence}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <button
+                                                style={styles.tradeBtn}
+                                                onClick={() => setSelectedCommodity(item)}
+                                                onMouseEnter={e => {
+                                                    e.target.style.background = 'var(--color-secondary)';
+                                                    e.target.style.color = 'var(--color-primary)';
+                                                }}
+                                                onMouseLeave={e => {
+                                                    e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+                                                    e.target.style.color = 'white';
+                                                }}
+                                            >
+                                                {tradeBtnText[lang] || tradeBtnText['en']}
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div style={{ color: 'var(--color-text-muted)' }}>
-                                        {lang === 'en' ? item.locationEn : item.locationHi}
-                                    </div>
-                                    <div style={{ fontWeight: '700', fontFamily: 'monospace', fontSize: '16px' }}>
-                                        {formatPrice(item.price)}/q
-                                    </div>
-                                    <div style={item.trend === 'up' ? styles.trendUp : item.trend === 'down' ? styles.trendDown : {}}>
-                                        {item.trend === 'up' ? '▲ Up' : item.trend === 'down' ? '▼ Down' : '• Stable'}
-                                    </div>
-                                    <div>
-                                        <span style={styles.aiBadge}>
-                                            {item.confidence === 'High' && '✨'} {item.confidence}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <button
-                                            style={styles.tradeBtn}
-                                            onClick={() => setSelectedCommodity(item)}
-                                            onMouseEnter={e => {
-                                                e.target.style.background = 'var(--color-secondary)';
-                                                e.target.style.color = 'var(--color-primary)';
-                                            }}
-                                            onMouseLeave={e => {
-                                                e.target.style.background = 'rgba(255, 255, 255, 0.1)';
-                                                e.target.style.color = 'white';
-                                            }}
-                                        >
-                                            {lang === 'en' ? 'Trade' : 'व्यापार'}
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                 </div>

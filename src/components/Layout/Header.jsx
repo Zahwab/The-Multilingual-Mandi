@@ -1,29 +1,39 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
+import { languages } from '../../data/languages';
+import { translations } from '../../data/marketData';
 
 const Header = () => {
     const { lang, setLang } = useLanguage();
     const location = useLocation();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+    const [isLangMenuOpen, setIsLangMenuOpen] = React.useState(false);
 
-    const toggleLang = () => {
-        setLang(prev => prev === 'en' ? 'hi' : 'en');
+    const handleLanguageSelect = (languageCode) => {
+        setLang(languageCode);
+        setIsLangMenuOpen(false);
     };
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
+        setIsLangMenuOpen(false);
     };
 
     const closeMobileMenu = () => {
         setIsMobileMenuOpen(false);
     };
 
+    const t = (key) => {
+        const langData = translations[lang];
+        return langData?.nav?.[key] || translations['en'].nav[key];
+    };
+
     const navLinks = [
-        { name: lang === 'en' ? 'Home' : 'होम', path: '/' },
-        { name: lang === 'en' ? 'Marketplace' : 'बाज़ार', path: '/marketplace' },
-        { name: lang === 'en' ? 'Vendors' : 'विक्रेता', path: '/#vendors' },
-        { name: lang === 'en' ? 'Buyers' : 'खरीदार', path: '/#buyers' },
+        { name: t('home'), path: '/' },
+        { name: t('marketplace'), path: '/marketplace' },
+        { name: t('vendors'), path: '/#vendors' },
+        { name: t('buyers'), path: '/#buyers' },
     ];
 
     const styles = {
@@ -88,6 +98,38 @@ const Header = () => {
             alignItems: 'center',
             gap: '6px',
             transition: 'all 0.2s',
+            position: 'relative',
+        },
+        langDropdown: {
+            position: 'absolute',
+            top: '120%',
+            right: 0,
+            background: 'var(--color-bg-dark)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '12px',
+            padding: '8px',
+            display: isLangMenuOpen ? 'flex' : 'none',
+            flexDirection: 'column',
+            gap: '4px',
+            minWidth: '160px',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+            maxHeight: '300px',
+            overflowY: 'auto',
+        },
+        langOption: {
+            padding: '8px 12px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            color: 'var(--color-text-muted)',
+            transition: 'all 0.2s',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            background: 'transparent',
+            border: 'none',
+            width: '100%',
+            textAlign: 'left',
+            fontSize: '14px',
         },
         // Mobile Styles
         hamburger: {
@@ -169,13 +211,46 @@ const Header = () => {
                         </Link>
                     ))}
 
-                    <button
-                        style={styles.langBtn}
-                        onClick={toggleLang}
-                        className="hover-lift"
-                    >
-                        <span>🇮🇳</span> {lang === 'en' ? 'HI' : 'EN'}
-                    </button>
+                    <div style={{ position: 'relative' }}>
+                        <button
+                            style={styles.langBtn}
+                            onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+                            className="hover-lift"
+                        >
+                            <span>🌐</span> {languages.find(l => l.code === lang)?.name || 'English'}
+                        </button>
+
+                        {isLangMenuOpen && (
+                            <div style={styles.langDropdown}>
+                                {languages.map((language) => (
+                                    <button
+                                        key={language.code}
+                                        style={{
+                                            ...styles.langOption,
+                                            background: lang === language.code ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+                                            color: lang === language.code ? 'white' : 'var(--color-text-muted)',
+                                        }}
+                                        onClick={() => handleLanguageSelect(language.code)}
+                                        onMouseEnter={(e) => {
+                                            if (lang !== language.code) {
+                                                e.target.style.background = 'rgba(255, 255, 255, 0.05)';
+                                                e.target.style.color = 'white';
+                                            }
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            if (lang !== language.code) {
+                                                e.target.style.background = 'transparent';
+                                                e.target.style.color = 'var(--color-text-muted)';
+                                            }
+                                        }}
+                                    >
+                                        <span>{language.name}</span>
+                                        <span style={{ fontSize: '12px', opacity: 0.7 }}>{language.nativeName}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
 
                     {/* Auth buttons removed - App is open to all */}
                 </nav>
@@ -205,12 +280,23 @@ const Header = () => {
                         </Link>
                     ))}
 
-                    <button
-                        style={{ ...styles.langBtn, fontSize: '18px', padding: '12px 24px' }}
-                        onClick={() => { toggleLang(); closeMobileMenu(); }}
-                    >
-                        <span>🇮🇳</span> {lang === 'en' ? 'Switch to Hindi' : 'Switch to English'}
-                    </button>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', width: '100%' }}>
+                        {languages.map((language) => (
+                            <button
+                                key={language.code}
+                                style={{
+                                    ...styles.langBtn,
+                                    justifyContent: 'center',
+                                    background: lang === language.code ? 'var(--color-secondary)' : 'rgba(255, 255, 255, 0.05)',
+                                    color: lang === language.code ? 'black' : 'white',
+                                    borderColor: lang === language.code ? 'var(--color-secondary)' : 'rgba(255, 255, 255, 0.1)',
+                                }}
+                                onClick={() => { handleLanguageSelect(language.code); closeMobileMenu(); }}
+                            >
+                                {language.nativeName}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
         </header>
