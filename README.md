@@ -1,16 +1,75 @@
-# React + Vite
+# The Multilingual Mandi 🌽
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A digital marketplace connecting farmers and buyers with multi-language support.
 
-Currently, two official plugins are available:
+![Status](https://img.shields.io/badge/Status-Development-yellow)
+![Tech](https://img.shields.io/badge/Tech-React%20%7C%20Vite%20%7C%20TailwindCSS-blue)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📖 Introduction
 
-## React Compiler
+**The Multilingual Mandi** is a web application designed to bridge the gap between farmers and the market. It offers a seamless experience for both **Buyes** (looking for fresh produce) and **Vendors/Farmers** (selling their harvest), with a strong focus on accessibility through multilingual support.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+-   **Dual Role Support**: Dedicated interfaces for Buyers and Vendors.
+-   **Multilingual**: Accessibility for users in different regions (Hindi, English, etc.).
+-   **Modern UI**: Clean, responsive interface built with React and styled with CSS/Tailwind.
+-   **Marketplace**: Browse and list agricultural products.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠 Tech Stack
+
+-   **Runtime**: Node.js
+-   **Framework**: [React](https://react.dev/)
+-   **Build Tool**: [Vite](https://vitejs.dev/)
+-   **Routing**: React Router DOM v6
+-   **Styling**: Vanilla CSS / Tailwind (if configured)
+-   **Linting**: ESLint
+
+## 🧩 System Context
+
+```mermaid
+graph TD
+    User((User))
+    Web[The Multilingual Mandi Web App]
+
+    User -->|Visits| Web
+    Web -->|Browse Products| User
+    Web -->|Switch Language| User
+
+    subgraph "Core Features"
+        Web --> H[Home Page]
+        Web --> M[Marketplace]
+        Web --> A[Authentication Data]
+    end
+```
+
+## 🚀 Quick Start
+
+1.  **Clone the repository**
+    ```bash
+    git clone <repository-url>
+    cd The-Multilingual-Mandi
+    ```
+
+2.  **Install dependencies**
+    ```bash
+    npm install
+    ```
+
+3.  **Start the development server**
+    ```bash
+    npm run dev
+    ```
+
+4.  **Build for production**
+    ```bash
+    npm run build
+    ```
+
+## 📂 Documentation
+
+-   [**Architecture**](./ARCHITECTURE.md) - Deep dive into component structure and data flow.
+-   [**User Guide**](./USER_GUIDE.md) - How to navigate and use the application.
+
+---
+*Built with ❤️ for farmers.*
