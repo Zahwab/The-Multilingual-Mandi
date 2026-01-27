@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Marketplace from '../components/Home/Marketplace.jsx';
 import { marketData } from '../data/marketData';
 import { useLanguage } from '../context/LanguageContext';
@@ -23,74 +23,19 @@ const MarketplacePage = () => {
         return matchesSearch && matchesLocation;
     });
 
-    const styles = {
-        page: {
-            paddingTop: '80px',
-            minHeight: '100vh',
-            background: 'var(--color-bg-dark)',
-        },
-        container: {
-            maxWidth: '1280px',
-            margin: '0 auto',
-            padding: '32px 24px',
-        },
-        title: {
-            fontSize: '32px',
-            fontWeight: 'bold',
-            marginBottom: '24px',
-            color: 'white',
-            textAlign: 'center',
-            fontFamily: 'var(--font-main)',
-        },
-        controls: {
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '16px',
-            marginBottom: '32px',
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        input: {
-            padding: '12px 16px',
-            borderRadius: '12px',
-            background: 'rgba(255, 255, 255, 0.1)',
-            color: 'white',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            outline: 'none',
-            fontSize: '16px',
-            minWidth: '250px',
-            transition: 'border-color 0.3s',
-        },
-        select: {
-            padding: '12px 16px',
-            borderRadius: '12px',
-            background: 'rgba(255, 255, 255, 0.1)',
-            color: 'white',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            outline: 'none',
-            fontSize: '16px',
-            cursor: 'pointer',
-            minWidth: '200px',
-        },
-        option: {
-            background: '#121212',
-            color: 'white',
-        }
-    };
-
     return (
-        <div style={styles.page}>
-            <div style={styles.container}>
-                <h1 style={styles.title}>
+        <div className="marketplace-page">
+            <div className="container">
+                <h1 className="section-title">
                     {lang === 'en' ? 'Mandi Marketplace' : 'मंडी बाज़ार'}
                 </h1>
 
                 {/* Search and Filters */}
-                <div style={styles.controls}>
+                <div className="page-controls">
                     <input
                         type="text"
                         placeholder={lang === 'en' ? "Search commodity..." : "फसल खोजें..."}
-                        style={styles.input}
+                        className="control-input"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
@@ -98,15 +43,15 @@ const MarketplacePage = () => {
                     />
 
                     <select
-                        style={styles.select}
+                        className="control-select"
                         value={selectedLocation}
                         onChange={(e) => setSelectedLocation(e.target.value)}
                         onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
                         onBlur={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)'}
                     >
-                        <option value="" style={styles.option}>{lang === 'en' ? "All Locations" : "सभी स्थान"}</option>
+                        <option value="" className="control-option">{lang === 'en' ? "All Locations" : "सभी स्थान"}</option>
                         {locations.map(loc => (
-                            <option key={loc} value={loc} style={styles.option}>{loc}</option>
+                            <option key={loc} value={loc} className="control-option">{loc}</option>
                         ))}
                     </select>
                 </div>
