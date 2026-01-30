@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Marketplace from '../components/Home/Marketplace.jsx';
-import { marketData } from '../data/marketData';
+import { marketData, translations } from '../data/marketData';
 import { useLanguage } from '../context/LanguageContext';
 
 const MarketplacePage = () => {
@@ -27,14 +27,14 @@ const MarketplacePage = () => {
         <div className="marketplace-page">
             <div className="container">
                 <h1 className="section-title">
-                    {lang === 'en' ? 'Mandi Marketplace' : 'मंडी बाज़ार'}
+                    {(translations[lang]?.marketplaceTitle || translations['en'].marketplaceTitle)}
                 </h1>
 
                 {/* Search and Filters */}
                 <div className="page-controls">
                     <input
                         type="text"
-                        placeholder={lang === 'en' ? "Search commodity..." : "फसल खोजें..."}
+                        placeholder={(translations[lang]?.searchPlaceholder || translations['en'].searchPlaceholder)}
                         className="control-input"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -49,7 +49,7 @@ const MarketplacePage = () => {
                         onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
                         onBlur={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)'}
                     >
-                        <option value="" className="control-option">{lang === 'en' ? "All Locations" : "सभी स्थान"}</option>
+                        <option value="" className="control-option">{(translations[lang]?.allLocations || translations['en'].allLocations)}</option>
                         {locations.map(loc => (
                             <option key={loc} value={loc} className="control-option">{loc}</option>
                         ))}

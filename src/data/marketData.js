@@ -152,7 +152,14 @@ export const translations = {
         buyersSection: {
             title: 'Active Buyers',
             contact: 'Contact Buyer'
-        }
+        },
+        marketplaceTitle: 'Mandi Marketplace',
+        searchPlaceholder: 'Search commodity...',
+        allLocations: 'All Locations',
+        action: 'Action',
+        since: 'Since',
+        verified: 'Verified',
+        topRated: 'Top Rated'
     },
     hi: {
         heroTitle: 'भारत की स्थानीय मंडियों को जोड़ रहा है',
@@ -208,7 +215,14 @@ export const translations = {
         buyersSection: {
             title: 'सक्रिय खरीदार',
             contact: 'खरीदार से संपर्क करें'
-        }
+        },
+        marketplaceTitle: 'मंडी बाज़ार',
+        searchPlaceholder: 'फसल खोजें...',
+        allLocations: 'सभी स्थान',
+        action: 'का्रवाई',
+        since: 'से',
+        verified: 'सत्यापित',
+        topRated: 'शीर्ष रेटेड'
     },
     bn: {
         heroTitle: 'ভারতের স্থানীয় বাজারগুলিকে',

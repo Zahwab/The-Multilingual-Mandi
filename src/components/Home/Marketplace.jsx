@@ -6,7 +6,7 @@ import { useLanguage } from '../../context/LanguageContext';
 const Marketplace = ({ data }) => {
     const { lang } = useLanguage();
     const [selectedCommodity, setSelectedCommodity] = useState(null);
-    const t = translations[lang] || translations['en'];
+    const t = { ...translations['en'], ...translations[lang] };
 
     // Use passed data or default to all marketData
     const displayData = data || marketData;
@@ -46,7 +46,7 @@ const Marketplace = ({ data }) => {
                         <div>{t.location}</div>
                         <div>{t.price}</div>
                         <div style={{ textAlign: 'center' }}>{t.trend}</div>
-                        <div style={{ textAlign: 'center' }}>Action</div>
+                        <div style={{ textAlign: 'center' }}>{t.action}</div>
                     </div>
 
                     <style>{`
@@ -75,6 +75,8 @@ const Marketplace = ({ data }) => {
                                     <div className="commodity-name">
                                         {commodityName}
                                     </div>
+                                </div>
+                                <div className="market-cell-location">
                                     <div className="commodity-location">
                                         📍 {locationName}
                                     </div>

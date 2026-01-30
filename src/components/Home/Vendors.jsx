@@ -48,7 +48,7 @@ const Vendors = () => {
                             <div className="vendor-detail-row">
                                 <span>🏢 {vendor.type}</span>
                                 <span>•</span>
-                                <span>📅 Since {vendor.joinedDate}</span>
+                                <span>📅 {(translations[lang]?.since || translations['en'].since)} {vendor.joinedDate}</span>
                             </div>
 
                             <div className="product-list">
