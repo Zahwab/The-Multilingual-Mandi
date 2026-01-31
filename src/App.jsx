@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import ScrollToTop from './components/Shared/ScrollToTop';
+import ScrollToTopButton from './components/Shared/ScrollToTopButton';
 import ScrollToAnchor from './components/Shared/ScrollToAnchor';
 
 // Lazy load pages for performance optimization
@@ -26,6 +27,7 @@ function App() {
   return (
     <div className="app">
       <ScrollToTop />
+      <ScrollToTopButton />
       <ScrollToAnchor />
       <Header />
       <main>

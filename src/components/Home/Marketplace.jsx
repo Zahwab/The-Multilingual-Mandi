@@ -49,11 +49,7 @@ const Marketplace = ({ data }) => {
                         <div style={{ textAlign: 'center' }}>{t.action}</div>
                     </div>
 
-                    <style>{`
-                        @media (max-width: 768px) {
-                            .header-row { display: none !important; }
-                        }
-                    `}</style>
+
 
                     {displayData.map((item, index) => {
                         // Dynamic language selection with fallback to English
